@@ -1,6 +1,6 @@
 ---
 title: "Brownlows Bets"
-author: "Your Name Goes Here"
+author: "Eileen Dunn"
 output: 
   html_document:
     number_sections: true
@@ -24,13 +24,13 @@ source(file="BrLw.R")
 
 <!--In this section you explain what you are trying to show.  Where did the data come from?  What is the research or other question you are trying to answer?!-->
 
- At the first day of class there are 35 students in Math Statistics class and professor Brownlow always proposes this bet to his students "I will wager $2 to your bet of $1 that at least two people in today's class have  the same birthday.  He tells me he has made that bet 637 times so far. Where do you think his profits are? Discuss this in a markdown document
+ At the first day of class there are 35 students in Math Statistics class and professor Brownlow always proposes this bet to his students "I will wager $2 to your bet of $1 that at least two people in today's class have  the same birthday.  He tells me he has made that bet 637 times so far. Where do you think his profits are? Discuss this in a markdown document  
  
-Report git commit structure:
-There are 3 questions and there should be at least 3 separate commits, at least one dealing with each of the 3 questions.
+Report git commit structure:  
+There are 3 questions and there should be at least 3 separate commits, at least one dealing with each of the 3 questions.  
 1. What are the fair odds for a bet on matching birthdays in a 35 person class.
-2. For what size class is a 2:1 odds bet fair.
-3. How much money would Brownlow be expected to end up with if the bets went as described.
+2. For what size class is a 2:1 odds bet fair.  
+3. How much money would Brownlow be expected to end up with if the bets went as described.  
 
 ## Our strategy is to build a Function and the use it to answer the three questions. 
 
@@ -42,13 +42,46 @@ The function will be given a class_size by number of students, odds, and Number_
   
 <!--Explain and display your method of coming up with a 95% confidence interval of  professor Brownlows winnings (or losings)-->
 
+# 1 What are the fair odds for a bet on matching birthdays in a 35 person class
+Assume we do this bet 40 times  
+
+```{r}
+bank= vector('numeric')
+for (i in 1:100) { 
+ bank[i] = BrLw(35, 2, 637)
+}
+print(mean(bank))
+hist(bank)
+lci=mean(bank)-sqrt(var(bank))*1.96
+uci=mean(bank)+sqrt(var(bank))*1.96
+print(lci)
+print(uci)
+```
+
+average profit = $280  
+
+Assuming we did the bet 40 times the fair odds would be good because of the increase in money DR. J would receive.  
+
 
 # What are the fair odds? Use manipulation of odds in the function to tune Brownlows earnings to zero. 
 
 
 <!--Decide on your methods:  In this section explain the approach you will take to attack the issue --- how will you decide on a likely estimate of professor Brownlow's earnings or losses after 637 bets. Also explain how you construct a 95% confidence interval about your estimate of his winnings !-->
 
+```{r}
+bank= vector('numeric')
+for (i in 1:100) { 
+ bank[i] = BrLw(35, 4.35, 637)
+}
+print(mean(bank))
+hist(bank)
+lci=mean(bank)-sqrt(var(bank))*1.96
+uci=mean(bank)+sqrt(var(bank))*1.96
+print(lci)
+print(uci)
+```
 
+The amount of money DR. J has to pay would be $4.35 so the he fair odds would be 4.35 for 35 students.  
 
 
 # What size of class makes the 2:1 bet fair?  Use manipulation of number of Students to tune Brownlows earnings to zero.
@@ -56,13 +89,24 @@ The function will be given a class_size by number of students, odds, and Number_
 <!--Explain and display the results of your method of coming up with the estimate of professor Brownlows betting profits!-->
 
 
+```{r}
+bank= vector('numeric')
+for (i in 1:100) { 
+ bank[i] = BrLw(30, 2, 637)
+}
+print(mean(bank))
+hist(bank)
+lci=mean(bank)-sqrt(var(bank))*1.96
+uci=mean(bank)+sqrt(var(bank))*1.96
+print(lci)
+print(uci)
+```
 
-
-
-
-
+In a 30 people class then the 2:1 bet is about fair.  
 
 # Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If professor Brownlow is consistantly making or losing money how could he change his payout so that his profits center on zero?  Also discuss what size his class should be in order to have his current scheme balance at zero profit.!-->
 
+
+If professor is consistently gaining and loosing money, he should change his payout to $4.35. In order to keep consistent with winnings and losings a class size of 30 students should work.  
